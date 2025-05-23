@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Manager</title>
+  <style>
+    body { font-family: Arial; margin: 2rem; }
+    input, button { margin: 5px; padding: 8px; }
+    .product { margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <h1>🛍️ Product Manager</h1>
+
+  <!-- Add Product Form -->
+  <div>
+    <input id="id" type="number" placeholder="ID">
+    <input id="name" type="text" placeholder="Name">
+    <input id="price" type="number" placeholder="Price">
+    <button onclick="addProduct()">Add Product</button>
+  </div>
+
+  <!-- Update Price -->
+  <div>
+    <input id="update-id" type="number" placeholder="ID">
+    <input id="new-price" type="number" placeholder="New Price">
+    <button onclick="updateProductPrice()">Update Price</button>
+  </div>
+
+  <!-- Delete Product -->
+  <div>
+    <input id="delete-id" type="number" placeholder="ID">
+    <button onclick="deleteProduct()">Delete Product</button>
+  </div>
+
+  <!-- Apply Discount -->
+  <div>
+    <input id="discount" type="number" placeholder="Discount %">
+    <button onclick="applyDiscount()">Apply Discount</button>
+  </div>
+
+  <!-- Product List -->
+  <div>
+    <button onclick="listProducts()">List Products</button>
+    <div id="product-list"></div>
+  </div>
+
+  <!-- Supabase Script -->
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
+    const supabaseUrl = 'https://ncxumuzapxyvfjprxmxd.supabase.co'
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5jeHVtdXphcHh5dmZqcHJ4bXhkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc1MDA1MTksImV4cCI6MjA2MzA3NjUxOX0.O1m56zen81qwRSYty9mn9nLaeBAAmizijyo09oIj1R4'
+    const supabase = createClient(supabaseUrl, supabaseKey)
+
+    async function addProduct() {
+      const id = +document.getElementById('id').value
+      const name = document.getElementById('name').value
+      const price = +document.getElementById('price').value
+      const { data, error } = await supabase.from('product').insert([{ id, name, price }])
+      if (error) alert(error.message)
+      else alert('✅ Product Added')
+    }
+
+    async function updateProductPrice() {
+      const id = +document.getElementById('update-id').value
+      const newPrice = +document.getElementById('new-price').value
+      const { data, error } = await supabase.from('product').update({ price: newPrice }).eq('id', id)
+      if (error) alert(error.message)
+      else alert('✅ Price Updated')
+    }
+
+    async function deleteProduct() {
+      const id = +document.getElementById('delete-id').value
+      const { data, error } = await supabase.from('product').delete().eq('id', id)
+      if (error) alert(error.message)
+      else alert('✅ Product Deleted')
+    }
+
+    async function applyDiscount() {
+      const percentage = +document.getElementById('discount').value
+      const { data, error } = await supabase.from('product').select('*')
+      if (error) return alert(error.message)
+      for (const product of data) {
+        const newPrice = product.price * (1 - percentage / 100)
+        await supabase.from('product').update({ price: newPrice }).eq('id', product.id)
+      }
+      alert(`✅ Discount of ${percentage}% applied`)
+    }
+
+    async function listProducts() {
+      const { data, error } = await supabase.from('product').select('*')
+      const listDiv = document.getElementById('product-list')
+      listDiv.innerHTML = ''
+      if (error) {
+        listDiv.innerText = error.message
+        return
+      }
+      if (!data.length) {
+        listDiv.innerText = 'No products found.'
+        return
+      }
+      data.forEach(p => {
+        const div = document.createElement('div')
+        div.className = 'product'
+        div.innerText = `🆔 ${p.id} | 🛒 ${p.name} | 💰 ₹${p.price}`
+        listDiv.appendChild(div)
+      })
+    }
+  </script>
+</body>
+</html>
