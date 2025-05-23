@@ -1,0 +1,99 @@
+body {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff5f5;
+  color: #5a3d5a;
+}
+
+h1 {
+  color: #ff85a2;
+  text-align: center;
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 0px #ffd6e0;
+}
+
+div {
+  background-color: white;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(255, 133, 162, 0.2);
+}
+
+input {
+  padding: 10px;
+  margin: 5px;
+  border: 2px solid #ffd6e0;
+  border-radius: 10px;
+  font-family: inherit;
+}
+
+input:focus {
+  outline: none;
+  border-color: #ff85a2;
+}
+
+button {
+  background-color: #ff85a2;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+button:hover {
+  background-color: #ff6b8b;
+  transform: scale(1.05);
+}
+
+#product-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.product {
+  background-color: #f0f9ff;
+  padding: 12px;
+  border-radius: 10px;
+  border-left: 5px solid #a2d2ff;
+  transition: all 0.3s;
+}
+
+.product:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 8px rgba(162, 210, 255, 0.3);
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  input, button {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+/* Hide number input arrows/spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
