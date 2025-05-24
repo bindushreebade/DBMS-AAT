@@ -1,21 +1,19 @@
-# 🛠️ Product Management System
+# 🛍️ Product Manager Web App
 
-A simple CLI-based system for managing products in a manufacturing company using Python and MySQL.
+A simple product management system built using **HTML**, **JavaScript**, and **[Supabase](https://supabase.io)** as the backend. Easily add, update, delete, list, and apply discounts to products using a sleek, interactive interface.
 
-## 📦 Features
-- Add new products
-- List all products
-- Update product price
-- Apply discount to all products
+---
 
-## 🐍 Requirements
-- Python 3
-- MySQL server
-- `mysql-connector-python` (install via pip)
+## 🚀 Features
 
-## 🚀 Setup Instructions
-1. Clone the repo or upload files to Replit.
-2. Run the SQL script (`schema.sql`) to create the database and table.
-3. Update `db_config.py` with your MySQL credentials.
-4. Run `main.py` to start the CLI program.
+- 📦 Add new products (ID, name, price)
+- ✏️ Update product price
+- ❌ Delete products
+- 💰 Apply bulk discounts
+- 📄 View product list in real-time
+- ⚡ Powered by Supabase (PostgreSQL & REST API)
+---
+
+
+
 
